@@ -19,7 +19,7 @@ if (Meteor.isClient) {
 
   Template.leaderboard.events({
     'click input.inc': function () {
-      Players.update(Session.get("selected_player"), {$inc: {score: 5}});
+      Players.update(Session.get("selected_player"), {$inc: {score: 1}});
     }
   });
 
@@ -34,14 +34,12 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
   Meteor.startup(function () {
     if (Players.find().count() === 0) {
-      var names = ["Ada Lovelace",
-                   "Grace Hopper",
-                   "Marie Curie",
-                   "Carl Friedrich Gauss",
-                   "Nikola Tesla",
-                   "Claude Shannon"];
+      var names = ["Text your Question",
+                   "And Vote it up!",
+                   "Vote up questions you think are cool",
+                   "Have Fun!"];
       for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*5});
+        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*1});
     }
   });
 }
