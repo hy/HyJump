@@ -1,0 +1,8 @@
+Install meteor, grab the leaderboard example, and then:
+
+sudo npm install -g meteorite
+
+cd leaderboard/
+mrt add iron-router
+
+

@@ -1,6 +1,9 @@
 // Set up a collection to contain player information. On the server,
 // it is backed by a MongoDB collection named "players".
 
+// http://stackoverflow.com/questions/10588038/how-to-use-the-existing-mongodb-in-a-meteor-project
+
+
 Players = new Meteor.Collection("players");
 
 if (Meteor.isClient) {
