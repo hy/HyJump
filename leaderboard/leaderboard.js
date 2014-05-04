@@ -36,13 +36,48 @@ if (Meteor.isClient) {
 // On server startup, create some players if the database is empty.
 if (Meteor.isServer) {
   Meteor.startup(function () {
+    Meteor.methods({
+      removeAllPlayers: function() {
+        return Players.remove({});
+      }
+    });
+
+
+// For now, auto-clean the DB on every entry during development
+    Meteor.call('removeAllPlayers');
+
     if (Players.find().count() === 0) {
-      var names = ["Text your Question",
-                   "And Vote it up!",
-                   "Vote up questions you think are cool",
-                   "Have Fun!"];
+      var names = ["Question 1",
+                   "Question 2",
+                   "Question 3",
+                   "Question 4"];
       for (var i = 0; i < names.length; i++)
         Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*1});
     }
   });
+
+  // simple route with
+  // name 'about' that
+  // matches '/about' and automatically renders
+  // template 'about'
+  Router.map( function () {
+    this.route('about');
+  });
+
+  // complex route with
+  // name 'notFound' that for example
+  // matches '/non-sense/route/that-matches/nothing' and automatically renders
+  // template 'notFound'
+  // HINT:
+  //// Define a global not found route as the very last route in your router
+  //// Also this is different from the notFoundTemplate in your Iron Router
+  //// configuration!
+
+  // this.route('notFound', {
+  //   path: '*'
+  // });
+
 }
+
+
+
