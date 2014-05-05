@@ -2,7 +2,7 @@
 
   <link href='http://fonts.googleapis.com/css?family=Rock+Salt' rel='stylesheet' type='text/css'>
 
-  <title> Questions from Kids </title>
+  <title> Questions from Patients </title>
   Super-early rough draft prototype with no attempt at graphical design ! :) 
 </head>
 
@@ -14,11 +14,6 @@
 </body>
 
 <template name="leaderboard">
-  <div class="leaderboard">
-    {{#each players}}
-      {{> player}}
-    {{/each}}
-  </div>
 
   {{#if selected_name}}
   <div class="details">
@@ -28,6 +23,13 @@
   {{else}}
   <div class="none"> (Click an entry to select it) </div>
   {{/if}}
+
+  <div class="leaderboard">
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+  </div>
+
 </template>
 
 <template name="player">
