@@ -1,58 +1,55 @@
-// Set up a collection to contain player information. On the server,
-// it is backed by a MongoDB collection named "players".
-
 // http://stackoverflow.com/questions/10588038/how-to-use-the-existing-mongodb-in-a-meteor-project
 
 
-Players = new Meteor.Collection("players");
+Messages = new Meteor.Collection("messages");
 
 if (Meteor.isClient) {
-  Template.leaderboard.players = function () {
-    return Players.find({}, {sort: {score: -1, name: 1}});
+  Template.leaderboard.messages = function () {
+    return Messages.find({}, {sort: {score: -1, text: 1}});
   };
 
-  Template.leaderboard.selected_name = function () {
-    var player = Players.findOne(Session.get("selected_player"));
-    return player && player.name;
+  Template.leaderboard.selected_text = function () {
+    var message = Messages.findOne(Session.get("selected_text"));
+    return message && message.text;
   };
 
-  Template.player.selected = function () {
-    return Session.equals("selected_player", this._id) ? "selected" : '';
+  Template.message.selected = function () {
+    return Session.equals("selected_text", this._id) ? "selected" : '';
   };
 
   Template.leaderboard.events({
     'click input.inc': function () {
-      Players.update(Session.get("selected_player"), {$inc: {score: 1}});
+      Messages.update(Session.get("selected_text"), {$inc: {score: 1}});
     }
   });
 
-  Template.player.events({
+  Template.message.events({
     'click': function () {
-      Session.set("selected_player", this._id);
+      Session.set("selected_text", this._id);
     }
   });
 }
 
-// On server startup, create some players if the database is empty.
+// On server startup, create some texts if the database is empty.
 if (Meteor.isServer) {
   Meteor.startup(function () {
     Meteor.methods({
-      removeAllPlayers: function() {
-        return Players.remove({});
+      removeAllMessages: function() {
+        return Messages.remove({});
       }
     });
 
 
 // For now, auto-clean the DB on every entry during development
-    Meteor.call('removeAllPlayers');
+    Meteor.call('removeAllMessages');
 
-    if (Players.find().count() === 0) {
-      var names = ["Question 1",
+    if (Messages.find().count() === 0) {
+      var msgs = ["Question 1",
                    "Question 2",
                    "Question 3",
                    "Question 4"];
-      for (var i = 0; i < names.length; i++)
-        Players.insert({name: names[i], score: Math.floor(Random.fraction()*10)*1});
+      for (var i = 0; i < msgs.length; i++)
+        Messages.insert({text: msgs[i], score: Math.floor(Random.fraction()*10)*1});
     }
   });
 
@@ -78,6 +75,5 @@ if (Meteor.isServer) {
   // });
 
 }
-
 
 

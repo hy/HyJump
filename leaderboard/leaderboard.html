@@ -15,26 +15,26 @@
 
 <template name="leaderboard">
 
-  {{#if selected_name}}
+  {{#if selected_text}}
   <div class="details">
-    <div class="name">{{selected_name}}</div>
-    <input type="button" class="inc" value="Vote this up!" />
+    <div class="text">{{selected_text}}
+    <input type="button" class="inc" value=" +1 !" /> </div>
   </div>
   {{else}}
-  <div class="none"> (Click an entry to select it) </div>
+  <div class="none"> (Click any entry to select it) </div>
   {{/if}}
 
   <div class="leaderboard">
-    {{#each players}}
-      {{> player}}
+    {{#each messages}}
+      {{> message}}
     {{/each}}
   </div>
 
 </template>
 
-<template name="player">
-  <div class="player {{selected}}">
-    <span class="name">{{name}}</span>
+<template name="message">
+  <div class="message {{selected}}">
+    <span class="text">{{text}}</span>
     <span class="score">{{score}}</span>
   </div>
 </template>

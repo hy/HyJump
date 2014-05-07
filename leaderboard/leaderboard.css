@@ -15,18 +15,18 @@ body {
     margin: 0 auto;
 }
 
-.player {
+.message {
     cursor: pointer;
     padding: 5px;
 }
 
-.player .name {
+.message .text {
     display: inline-block;
     width: 300px;
     font-size: 0.75em;
 }
 
-.player .score {
+.message .score {
     display: inline-block;
     width: 100px;
     text-align: right;
@@ -35,11 +35,11 @@ body {
     color: #777;
 }
 
-.player.selected {
+.message.selected {
     background-color: green;
 }
 
-.player.selected .score {
+.message.selected .score {
     color: black;
 }
 
